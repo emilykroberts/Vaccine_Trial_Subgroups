@@ -7,9 +7,9 @@ iter = 100; burnin = 10; n = 100
 closedform = TRUE
 assumeXnormal = FALSE
 difference = F
-Xfit =T
+Xfit = T
 condindfit = T
-impute =T
+impute = T
 method ='E'
 SIM<-1500
 
@@ -23,9 +23,8 @@ theta10<-0.15; theta11<-0.7; thetaT<-0.2142857
 if(method == "B"){omega1 = 0; omega2 = 0}
 if(method == "C"){omega1 = 1; omega2 = 0}
 if(method == "D"){omega1 = 3; omega2 = 1; theta10 = 0.0766; theta11 = 0.3; thetaT = 0.255}
-
-if(method == "F"){omega1 = -0.75; omega2 = 2}
 if(method == "E"){beta0 = 2; omega1 = -1; omega2 = 1; alpha1 = 3.8; psi2 = 1}
+if(method == "F"){omega1 = -0.75; omega2 = 2}
 #psi2 = 0
 R<-matrix(rep(1,3*3),3,3); R[1,2] = R[2,1] = theta10;  R[1,3] = R[3,1] <-theta11;  R[2,3] = R[3,2] <- thetaT
 R; eigen(R)
@@ -63,7 +62,6 @@ piT = (omega1*omega2*tau4^2 * sqrt(eps2^2 + omega2^2 * tau4^2)* sqrt(
    tau4^2 + eps2^2 * omega2^2 * tau4^2 + omega1^2 * omega2^2 * tau4^4)
 
 Q[1,2] = Q[2,1] = pi10;  Q[3,1] = Q[1,3]<-pi11; Q[3,2] = Q[2,3]<-piT
-Q
 
 thetaT - theta10/theta11
 
@@ -80,7 +78,6 @@ V = diag(c(tau1, tau2, tau3))
 S<-diag(c(eps1, eps2, eps3)); 
 
 allsampmarg = mvrnorm(iter*n, mu = c(eta1, eta2, eta3, eta4), P)
-#if(Xfit == FALSE){ X = allsampmarg[, 4] }
 trueR = R
 
 P = diag(sqrt(diag(ginv(R))))
@@ -102,7 +99,6 @@ Sigmacoef=matrix((NA),SIM*6,nrow=6); holdomega1[1] = omega1; holdomega2[1] = ome
 if(difference == TRUE){  
   allsampd = allsampmarg
    allsampd = allsamp
-# allsampd[,2:3] = allsampmarg[, 2:3] -  allsampmarg[, 4]
  # allsampd[,1:3] = allsampd[,1:3] + cbind(psi2 * X, omega1 * X, omega2 * X)
  allsampd[,2:3] = allsampd[, 2:3] -  X
   
@@ -724,7 +720,7 @@ fr23[(k-low23+1),2]<-fdelt(n, R, j3)
   R[2,3] = R[3,2] = r23 = holdR[2,3,sim] = rBeta_ab(1, shape1 = 5, shape2 = 6, a = -0.4, b = 1)
   #R[2,3] = R[3,2] = r23 = holdR[2,3,sim] = 0.22
   #R[2,3] = R[3,2] = r23 = holdR[2,3,sim] = 0.85
-  R[2,3] = holdR[2,3,1]
+  #R[2,3] = holdR[2,3,1]
   
   ###r12 rt
   R[1,2] = R[2,1] = R[1,3] * R[2,3]

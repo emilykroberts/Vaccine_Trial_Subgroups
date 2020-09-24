@@ -912,7 +912,7 @@ while(sim<=SIM){
   slope[sim]=(holdR[1,3,sim]*holdS[3,3,sim]-holdR[1,2,sim]*holdS[2,2,sim])/(holdS[1,1,sim])
   slope[1]=(holdR[1,3,1]*holdS[3,3,1]-holdR[1,2,1]*holdS[2,2,1])/(holdS[1,1,1])
   
-  if(Xfit == TRUE){ # decide how we want to do this part -> age at 4 years
+  if(Xfit == TRUE){ # decide how we want to do this part -> age at 5 years
     holdmu1[,sim] = c(holdphi1[sim] + holdphi2[sim], holdphi4[sim] + holdphi5[sim], holdphi7[sim] + holdphi8[sim])
     holdmu1[,sim] = c(holdphi1[sim], holdphi4[sim] + 5*holdphi6[sim] + 5^2*holdphi62[sim], holdphi7[sim] + 5*holdphi9[sim] +
                         5^2*holdphi92[sim])
@@ -942,10 +942,8 @@ while(sim<=SIM){
     for(l in 2:ncol(sgrid)){    Xgrid[,l] = c(X[l:(n)], X[1:(l - 1)])   }
     
     for(l in 1:ncol(sgrid)){
-      
       Xpermute = Xgrid[,l]
       # needs to be |Age, Age^2
-      
       intgrid[,l] = intx = ((coef(lm(ST[,3] ~ X + Age + I(Age^2)))[1] + coef(lm(ST[,3] ~ X + Age + I(Age^2)))[2]*Xpermute) - 
                               (coef(lm(ST[,2] ~ X + Age + I(Age^2)))[1] + coef(lm(ST[,2] ~ X + Age + I(Age^2)))[2]*Xpermute))-slope[sim] * (
                                 holdphi1[sim])
@@ -992,7 +990,6 @@ while(sim<=SIM){
     B = holdphi8[sim] - holdphi5[sim] - slope[sim]*holdphi2[sim]
     
     gamma0star = A + B*(eta4h - tau1h^(-1)*tau4h*pi1Xh*eta1h) # aligns with previous belief
-    
     gamma1star = B*(tau1h^(-1)*tau4h*pi1Xh) + slope[sim]
     if(sim <= 3){
       plot(s,  gamma0star + gamma1star*s)
