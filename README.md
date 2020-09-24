@@ -6,3 +6,5 @@ Contains code and information regarding my dissertation chapter one and correspo
 https://www.overleaf.com/6979618655rvrhrgsrbpcp
 
 for full manuscript draft and eventual ENAR student competition draft.
+
+Code files include simulation results for settings A-F, mimicking the trial data, and the non-normally distributed outcomes.
